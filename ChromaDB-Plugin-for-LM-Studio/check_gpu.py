@@ -1,9 +1,9 @@
+import sys
+from PySide6.QtWidgets import QApplication, QMessageBox
 import torch
-import tkinter as tk
-from tkinter import messagebox
 
-# Create a function to display the information in a popup window
 def display_info():
+    app = QApplication(sys.argv)
     info_message = ""
 
     if torch.cuda.is_available():
@@ -25,11 +25,8 @@ def display_info():
     else:
         info_message += "ROCm is not available.\n"
 
-    # Create a small window to display the information
-    root = tk.Tk()
-    root.withdraw()  # Hide the main window
-    messagebox.showinfo("System Information", info_message)
-    root.destroy()  # Close the hidden main window when the popup is closed
+    msg_box = QMessageBox(QMessageBox.Information, "GPU Acceleration Available?", info_message)
+    msg_box.exec()
 
-# Call the display_info function to show the information in a window
-display_info()
+if __name__ == "__main__":
+    display_info()

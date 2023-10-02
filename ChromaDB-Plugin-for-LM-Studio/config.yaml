@@ -29,16 +29,9 @@ AVAILABLE_MODELS:
 - sentence-transformers/gtr-t5-large
 - sentence-transformers/gtr-t5-base
 COMPUTE_DEVICE: cuda
-DOCUMENT_MAP:
-  .csv: UnstructuredCSVLoader
-  .docx: Docx2txtLoader
-  .eml: UnstructuredEmailLoader
-  .enex: EverNoteLoader
-  .json: JSONLoader
-  .msg: UnstructuredEmailLoader
-  .pdf: PDFMinerLoader
-  .txt: TextLoader
-  .xls: UnstructuredExcelLoader
-  .xlsx: UnstructuredExcelLoader
-EMBEDDING_MODEL_NAME: C:/PATH/Scripts/LM Search Vector Database/LM Search Vector Database_v1_5
-  - working/Embedding_Models/hkunlp--instructor-xl
+EMBEDDING_MODEL_NAME: C:/PATH/Scripts/LM Search Vector Database/v1_7 - working/Embedding_Models/sentence-transformers--all-mpnet-base-v2
+tabs:
+- name: Settings
+  placeholder: Placeholder text for Settings tab.
+- name: Models
+  placeholder: Placeholder text for Models tab.

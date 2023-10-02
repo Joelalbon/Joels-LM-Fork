@@ -1,6 +1,7 @@
 from pynvml import *
 from multiprocessing import Process, Pipe, Event
 import time
+from PySide6.QtCore import QTimer
 
 def monitor_nvml(pipe, stop_event):
     nvmlInit()
@@ -37,15 +38,17 @@ class GPU_Monitor:
         self.gpu_label = gpu_label
         self.root = root
         self.parent_conn, self.process, self.stop_event = start_monitoring_gpu()
-        self.update_gpu_info()
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_gpu_info)
+        self.timer.start(500)
 
     def update_gpu_info(self):
         if self.parent_conn.poll():
             memory_used_str, gpu_utilization = self.parent_conn.recv()
-            self.vram_label.config(text=f"VRAM: {memory_used_str}")
-            self.gpu_label.config(text=f"GPU: {gpu_utilization}")
-        self.root.after(500, self.update_gpu_info)
+            self.vram_label.setText(f"VRAM: {memory_used_str}")
+            self.gpu_label.setText(f"GPU: {gpu_utilization}")
 
     def stop_and_exit_gpu_monitor(self):
+        self.timer.stop()
         stop_monitoring_gpu(self.process, self.stop_event)
-        self.root.quit()
+        self.root.close()

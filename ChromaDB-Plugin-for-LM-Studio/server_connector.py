@@ -2,10 +2,9 @@ import os
 import openai
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceInstructEmbeddings, HuggingFaceEmbeddings, HuggingFaceBgeEmbeddings
-from chromadb.config import Settings  # Changed import
+from chromadb.config import Settings
 import yaml
 import torch
-import gc
 
 ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 SOURCE_DIRECTORY = f"{ROOT_DIRECTORY}/Docs_for_DB"
@@ -21,8 +20,6 @@ openai.api_key = ''
 
 prefix = "[INST]"
 suffix = "[/INST]"
-
-last_response = None
 
 def connect_to_local_chatgpt(prompt):
     formatted_prompt = f"{prefix}{prompt}{suffix}"
@@ -82,7 +79,3 @@ def interact_with_chat(user_input):
     answer = response['answer']
     last_response = answer
     return answer
-
-def get_last_response():
-    global last_response
-    return last_response
