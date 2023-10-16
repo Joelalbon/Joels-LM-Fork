@@ -9,6 +9,7 @@ A simple GUI application developed using `tkinter` that allows users to send inp
 - **Notifications**: Uses the `plyer` library to display API responses as system notifications, partitioned if they exceed a certain length.
 - **API Communication**: Sends requests to `http://localhost:{PORT}/v1/chat/completions` and handles potential request exceptions.
 - **Topmost Window**: The GUI always remains on top of other windows.
+- **Scrollback**: Use the up and down arrow keys to navigate through the last 10 entries you've submitted. 
 - **Exit Mechanism**: Pressing 'Escape' prompts a confirmation messagebox to exit.
 
 ## Installation & Setup
