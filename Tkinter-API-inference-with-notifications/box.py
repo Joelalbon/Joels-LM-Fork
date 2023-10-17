@@ -15,6 +15,9 @@ class OverlayApp:
         
         self.keep_on_top()
         root.update_idletasks()
+        self.history = []
+        self.history_index = -1
+        self.current_text = ""
 
         def quit_app(event=None):
             confirm = messagebox.askyesno("Confirmation", "Are you sure you want to quit?")
@@ -26,6 +29,8 @@ class OverlayApp:
         self.wordbox = tk.Entry(root)
         self.wordbox.pack(pady=5, padx=5, fill=tk.BOTH, expand=True)
         self.wordbox.bind('<Return>', self.generate)
+        self.wordbox.bind('<Up>', self.scroll_up)
+        self.wordbox.bind('<Down>', self.scroll_down)        
 
         def start_move(event):
             root.x = event.x
@@ -44,14 +49,37 @@ class OverlayApp:
         root.bind("<ButtonRelease-1>", stop_move)
         root.bind("<B1-Motion>", do_move)
 
+    def scroll_up(self, event=None):
+        if len(self.history) > 0 and self.history_index < len(self.history) - 1:
+            if self.history_index == -1:
+                self.current_text = self.wordbox.get()
+            self.history_index += 1
+            self.wordbox.delete(0, tk.END)
+            self.wordbox.insert(0, self.history[self.history_index])
+
+    def scroll_down(self, event=None):
+        if self.history_index > -1:
+            self.history_index -= 1
+            self.wordbox.delete(0, tk.END)
+            if self.history_index == -1:
+                self.wordbox.insert(0, self.current_text)
+            else:
+                self.wordbox.insert(0, self.history[self.history_index])
+
+
     def generate(self, event=None):
         user_input = self.wordbox.get()
+        self.history.append(user_input)  # Updating history
+        self.history = self.history[-10:]  # Keep only last 10 entries
+        self.history_index = -1  # Resetting history index
+        self.current_text = ""  # Clearing current text
         try:
             response = self.send_request(user_input)
             send_notification(f"Response: {response}")
         except requests.RequestException as e:
             send_notification(f"Request Exception: {str(e)}")
         self.wordbox.delete(0, tk.END)
+
 
     def send_request(self, user_input):
         url = f"http://localhost:{PORT}/v1/chat/completions"
