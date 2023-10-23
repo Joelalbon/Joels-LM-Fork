@@ -1,3 +1,8 @@
 
 .DS_Store
 interstitial_API/__pycache__/interstitial_API.cpython-310.pyc
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/lm-studio-examples.iml
+.idea/inspectionProfiles/profiles_settings.xml
