@@ -29,7 +29,7 @@ def check_termination(x):
 
 user_proxy = autogen.UserProxyAgent(
     name="User_proxy",
-    code_execution_config={"last_n_messages": 10, "work_dir": f"groupchat", "use_docker": "python:3"},
+    code_execution_config={"last_n_messages": 10, "work_dir": f"groupchat"},
     human_input_mode="NEVER",
     default_auto_reply="default_auto_reply",
     max_consecutive_auto_reply=10,
