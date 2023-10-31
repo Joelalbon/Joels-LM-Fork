@@ -1,4 +1,8 @@
-# LM Studio Client Code Examples
+## Note: This repository is now archived.  It will be replaced by a new &amp; improved place to find starter code examples for your projects. Stay tuned. 👾
+
+
+
+# (Archived) LM Studio Client Code Examples
 Client code examples &amp; integrations that utilize LM Studio's in-app local inference server
 
 ## Contributions
